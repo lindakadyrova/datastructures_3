@@ -1,0 +1,81 @@
+*.html
+*.pdf
+.vscode/
+target/
+.mvn/
+*.log
+logs/
+logs/*.log
+src/main/resources/log4j2.xml
+
+# Compiled class file
+*.class
+ 
+# Log file
+*.log
+ 
+# BlueJ files
+*.ctxt
+ 
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+ 
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+ 
+ 
+# Maven 
+.mvn/
+target/
+ 
+# Maven release and backup files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+ 
+ 
+# Java class files and packaged binaries
+*.class
+*.jar
+*.war
+*.ear
+ 
+# Generated log files, error reports, and temporary files
+*.log
+hs_err_pid*
+ 
+# Generic temporary files
+*.tmp
+ 
+ 
+#IntelliJ IDEA and vscode
+.idea/
+*.iml
+out/
+.vscode/
+ 
+ 
+# OS-specific files
+ 
+## macOS
+.DS_Store
+ 
+## Windows
+Thumbs.db
+ehthumbs.db
+ 
+# Additional files to ignore
+ 
+## Application-specific files or runtime logs
+*.swp
+*.swo
