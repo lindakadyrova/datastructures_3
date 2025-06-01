@@ -1,3 +1,4 @@
+
 # Lineare Suche – Laufzeitanalyse
 
 ## Arraygröße: 100
