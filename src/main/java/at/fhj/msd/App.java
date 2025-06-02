@@ -1,65 +1,87 @@
 package at.fhj.msd;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class App {
-    public static void main(String[] args) {
-        int[] sizes = {100, 1000, 10000, 100000};
 
-        try (FileWriter mdWriter = new FileWriter("report.md")) {
-            mdWriter.write("# Lineare Suche – Laufzeitanalyse\n\n");
-
-            for (int size : sizes) {
-                int[] array = generateRandomArray(size);
-                int maxValue = size;
-                long minTime = Long.MAX_VALUE;
-                long maxTime = Long.MIN_VALUE;
-                long totalTime = 0;
-
-                for (int x = 1; x <= maxValue; x++) {
-                    long start = System.nanoTime();
-                    LinearSearch.linearSearch(array, x);
-                    long end = System.nanoTime();
-                    long duration = end - start;
-
-                    minTime = Math.min(minTime, duration);
-                    maxTime = Math.max(maxTime, duration);
-                    totalTime += duration;
-                }
-
-                double avgTime = totalTime / (double) maxValue;
-
-                String block = String.format(
-                    "## Arraygröße: %d\n\n" +
-                    "- Minimale Zeit: `%d ns`\n" +
-                    "- Maximale Zeit: `%d ns`\n" +
-                    "- Durchschnittliche Zeit: `%.2f ns`\n\n" +
-                    "---\n\n",
-                    size, minTime, maxTime, avgTime
-                );
-
-                System.out.print(block);       // Optional: auch in Konsole
-                mdWriter.write(block);         // In Markdown-Datei schreiben
-            }
-
-            System.out.println("Markdown-Report gespeichert als linear_search_report.md");
-        } catch (IOException e) {
-            System.err.println("Fehler beim Schreiben: " + e.getMessage());
+    // Linear Search
+    public static int linearSearch(int[] arr, int x) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == x) return i;
         }
+        return -1;
     }
 
-    public static int[] generateRandomArray(int size) {
+    // Binary Search (requires sorted array)
+    public static int binarySearch(int[] arr, int x) {
+        int left = 0, right = arr.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == x) return mid;
+            if (arr[mid] < x) left = mid + 1;
+            else right = mid - 1;
+        }
+        return -1;
+    }
+
+    // Interpolation Search (requires sorted array)
+    public static int interpolationSearch(int[] arr, int x) {
+        int low = 0, high = arr.length - 1;
+        while (low <= high && x >= arr[low] && x <= arr[high]) {
+            int pos = low + ((x - arr[low]) * (high - low)) / (arr[high] - arr[low]);
+            if (arr[pos] == x) return pos;
+            if (arr[pos] < x) low = pos + 1;
+            else high = pos - 1;
+        }
+        return -1;
+    }
+
+    // Quadratic Binary Search (requires sorted array)
+    public static int quadraticBinarySearch(int[] arr, int x) {
+        int step = (int) Math.sqrt(arr.length);
+        int prev = 0;
+        while (prev < arr.length && arr[prev] < x) prev += step;
+        for (int i = Math.max(0, prev - step); i < Math.min(prev, arr.length); i++) {
+            if (arr[i] == x) return i;
+        }
+        return -1;
+    }
+
+    // Generate randomized array
+    public static int[] generateRandomArray(int size, int maxValue) {
         List<Integer> list = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
+        Random random = new Random();
+        
+        // Fill with values 1 to maxValue
+        for (int i = 1; i <= maxValue; i++) {
             list.add(i);
         }
-        Collections.shuffle(list);
-        int[] result = new int[size];
-        for (int i = 0; i < size; i++) {
-            result[i] = list.get(i);
+        
+        // Add random values if size > maxValue
+        while (list.size() < size) {
+            list.add(random.nextInt(maxValue) + 1);
         }
-        return result;
+        
+        // Shuffle the array
+        Collections.shuffle(list);
+        return list.stream().mapToInt(i -> i).toArray();
+    }
+
+    // Example usage (you'll replace this with your JUnit tests)
+    public static void main(String[] args) {
+        // Generate test arrays of different sizes
+        int[] sizes = {100, 1000, 10000, 100000};
+        for (int size : sizes) {
+            int[] randomArray = generateRandomArray(size, 100);
+            int[] sortedArray = randomArray.clone();
+            Arrays.sort(sortedArray);
+            
+            // Now you can test your search methods here
+            // Or better - write JUnit tests
+        }
     }
 }

@@ -1,35 +1,50 @@
+# Search Algorithm – Analysis
 
-# Lineare Suche – Laufzeitanalyse
+## Linear Search – Array Size: 100
 
-## Arraygröße: 100
-
-- Minimale Zeit: `100 ns`
-- Maximale Zeit: `827800 ns`
-- Durchschnittliche Zeit: `9492,00 ns`
+- Number of searches performed: 100
 
 ---
 
-## Arraygröße: 1000
+## Binary Search – Array Size: 100
 
-- Minimale Zeit: `100 ns`
-- Maximale Zeit: `47600 ns`
-- Durchschnittliche Zeit: `2217,10 ns`
+- Number of searches performed: 100
 
 ---
 
-## Arraygröße: 10000
+## Linear Search – Array Size: 1000
 
-- Minimale Zeit: `0 ns`
-- Maximale Zeit: `297600 ns`
-- Durchschnittliche Zeit: `2040,10 ns`
+- Number of searches performed: 1000
 
 ---
 
-## Arraygröße: 100000
+## Binary Search – Array Size: 1000
 
-- Minimale Zeit: `0 ns`
-- Maximale Zeit: `1178100 ns`
-- Durchschnittliche Zeit: `14293,75 ns`
+- Number of searches performed: 1000
+
+---
+
+## Linear Search – Array Size: 10000
+
+- Number of searches performed: 10000
+
+---
+
+## Binary Search – Array Size: 10000
+
+- Number of searches performed: 10000
+
+---
+
+## Linear Search – Array Size: 100000
+
+- Number of searches performed: 100000
+
+---
+
+## Binary Search – Array Size: 100000
+
+- Number of searches performed: 100000
 
 ---
 
