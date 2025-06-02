@@ -1,72 +1,78 @@
 package at.fhj.msd;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
-
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {
+public class AppTest {
 
-    private static int[] smallUnsorted;
-    private static int[] smallSorted;
-    private static int[] withDuplicates;
-
-    @BeforeAll
-    static void setUp() {
-        smallUnsorted = new int[] { 5, 1, 8, 3, 7 };
-        smallSorted = smallUnsorted.clone();
-        Arrays.sort(smallSorted);
-        withDuplicates = new int[] { 2, 4, 4, 4, 9, 2, 7 };
-        Arrays.sort(withDuplicates);
+    @Test
+    public void testLinearSearch_found() {
+        int[] arr = {1, 3, 5, 7, 9};
+        assertEquals(2, App.linearSearch(arr, 5));
     }
 
     @Test
-    void testLinearSearchFound() {
-        assertEquals(2, App.linearSearch(smallUnsorted, 8));
-        assertEquals(0, App.linearSearch(smallUnsorted, 5));
+    public void testLinearSearch_notFound() {
+        int[] arr = {2, 4, 6, 8};
+        assertEquals(-1, App.linearSearch(arr, 5));
     }
 
     @Test
-    void testLinearSearchNotFound() {
-        assertEquals(-1, App.linearSearch(smallUnsorted, 99));
+    public void testBinarySearch_found() {
+        int[] arr = {1, 3, 5, 7, 9};
+        assertEquals(4, App.binarySearch(arr, 9));
     }
 
     @Test
-    void testBinarySearchFound() {
-        assertEquals(2, App.binarySearch(smallSorted, 5));
-        assertTrue(App.binarySearch(smallSorted, 1) >= 0);
-        assertTrue(App.binarySearch(smallSorted, 8) >= 0);
+    public void testBinarySearch_notFound() {
+        int[] arr = {1, 2, 3, 4, 5};
+        assertEquals(-1, App.binarySearch(arr, 6));
     }
 
     @Test
-    void testBinarySearchNotFound() {
-        assertEquals(-1, App.binarySearch(smallSorted, 99));
+    public void testInterpolationSearch_found() {
+        int[] arr = {10, 20, 30, 40, 50};
+        assertEquals(2, App.interpolationSearch(arr, 30));
     }
 
     @Test
-    void testInterpolationSearchFound() {
-        assertTrue(App.interpolationSearch(smallSorted, 3) >= 0);
-        assertTrue(App.interpolationSearch(smallSorted, 7) >= 0);
+    public void testInterpolationSearch_notFound() {
+        int[] arr = {10, 20, 30, 40, 50};
+        assertEquals(-1, App.interpolationSearch(arr, 35));
     }
 
     @Test
-    void testInterpolationSearchNotFound() {
-        assertEquals(-1, App.interpolationSearch(smallSorted, 42));
+    public void testQuadraticBinarySearch_found() {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13};
+        assertEquals(3, App.quadraticBinarySearch(arr, 7));
     }
 
     @Test
-    void testQuadraticBinarySearchNotFound() {
-        assertEquals(-1, App.quadraticBinarySearch(smallSorted, 999));
+    public void testQuadraticBinarySearch_notFound() {
+        int[] arr = {1, 2, 3, 4, 5, 6};
+        assertEquals(-1, App.quadraticBinarySearch(arr, 9));
     }
 
     @Test
-    void testGenerateRandomArraySizeAndRange() {
-        int[] randomArray = App.generateRandomArray(100, 50);
-        assertEquals(100, randomArray.length);
-        for (int num : randomArray) {
-            assertTrue(num >= 1 && num <= 50);
+    public void testGenerateRandomArray_sizeCorrect() {
+        int[] arr = App.generateRandomArray(50, 10);
+        assertEquals(50, arr.length);
+    }
+
+    @Test
+    public void testGenerateRandomArray_valuesInRange() {
+        int[] arr = App.generateRandomArray(100, 20);
+        for (int val : arr) {
+            assertTrue(val >= 1 && val <= 20);
         }
+    }
+
+    @Test
+    public void testGenerateRandomArray_duplicatesPossible() {
+        int[] arr = App.generateRandomArray(200, 10);
+        long uniqueCount = Arrays.stream(arr).distinct().count();
+        assertTrue(uniqueCount <= 10); // Duplicates should exist when size > maxValue
     }
 }
